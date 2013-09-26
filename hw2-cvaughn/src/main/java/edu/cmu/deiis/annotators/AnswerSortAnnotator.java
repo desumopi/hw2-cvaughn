@@ -109,7 +109,6 @@ public class AnswerSortAnnotator extends JCasAnnotator_ImplBase {
       as.setEnd(answer.getEnd());
       as.addToIndexes();
       
-      System.out.println("The score for the answer \"" + docText.substring(aBegin,aEnd) + "\" is: " + ansScores[j]);
     }
     
   }
