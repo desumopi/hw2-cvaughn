@@ -73,8 +73,6 @@ public class QAAnnotator extends JCasAnnotator_ImplBase {
       }
       prev = tok;
     }
-    for (int j=0; j < aBegins.size(); j++) {
-      
-    }
+    
   }
 }
