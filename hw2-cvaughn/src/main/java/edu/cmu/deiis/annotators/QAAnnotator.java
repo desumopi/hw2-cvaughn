@@ -68,10 +68,12 @@ public class QAAnnotator extends JCasAnnotator_ImplBase {
         ans.setBegin(begin + 4);
         
         // set whether the answer is correct
-        String isCorrect = docText.substring(begin+2, end+2);
-        if (isCorrect == "1") {
+        Token truthTok = tokArray.get(i+1);
+        
+        String isCorrect = docText.substring(truthTok.getBegin(), truthTok.getEnd());
+        if (isCorrect.equals("1")) {
           ans.setIsCorrect(true);
-        } else if (isCorrect == "0") {
+        } else if (isCorrect.equals("0")) {
           ans.setIsCorrect(false);
         } else {
           System.out.println("This is neither 1 nor 0, but should be: " + isCorrect);
