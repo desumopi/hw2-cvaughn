@@ -54,7 +54,7 @@ public class QAAnnotator extends JCasAnnotator_ImplBase {
         
         // find the question's ending:
         int k = i;
-        while ( !tokArray.get(k).equals("A") ) {
+        while ( k < tokArray.size() && !tokArray.get(k).equals("A") ) {
           k++;
         }
         Token lastTok = tokArray.get(k-1);
@@ -69,7 +69,7 @@ public class QAAnnotator extends JCasAnnotator_ImplBase {
         
         // find the question's ending:
         int k = i;
-        while ( !tokArray.get(k).equals("A") && k < tokArray.size()) {
+        while ( k < tokArray.size() && !tokArray.get(k).equals("A") ) {
           k++;
         }
         Token lastTok = tokArray.get(k-1);
