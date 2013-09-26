@@ -102,6 +102,13 @@ public class AnswerSortAnnotator extends JCasAnnotator_ImplBase {
       score = score/(double)total;
       ansScores[j] = score;
       
+      AnswerScore as = new AnswerScore(aJCas);
+      as.setAnswer(answer);
+      as.setScore(score);
+      as.setBegin(answer.getBegin());
+      as.setEnd(answer.getEnd());
+      as.addToIndexes();
+      
       System.out.println("The score for the answer \"" + docText.substring(aBegin,aEnd) + "\" is: " + ansScores[j]);
     }
     

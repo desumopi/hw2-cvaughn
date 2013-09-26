@@ -33,6 +33,9 @@
     <delegateAnalysisEngine key="QAAnnotator">
       <import name="descriptors.QAAnnotator"/>
     </delegateAnalysisEngine>
+  <delegateAnalysisEngine key="AnswerSortAnnotator">
+      <import name="descriptors.AnswerSortAnnotator"/>
+    </delegateAnalysisEngine>
   </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
 		<name>Aggregate Analysis Engine</name>
@@ -40,13 +43,14 @@
 		<version>1.0</version>
 		<vendor>Callie Vaughn</vendor>
 		
-		<configurationParameters/>
+		<configurationParameters searchStrategy="language_fallback"/>
     <configurationParameterSettings/>
     <flowConstraints>
       <fixedFlow>
         <node>TokenAnnotator</node>
         <node>NgramAnnotator</node>
         <node>QAAnnotator</node>
+      <node>AnswerSortAnnotator</node>
       </fixedFlow>
     </flowConstraints>
     <fsIndexCollection/>
@@ -59,6 +63,7 @@
           <type allAnnotatorFeatures="true">edu.cmu.deiis.types.NGram</type>
           <type allAnnotatorFeatures="true">edu.cmu.deiis.types.Question</type>
           <type allAnnotatorFeatures="true">edu.cmu.deiis.types.Answer</type>
+        <type allAnnotatorFeatures="true">edu.cmu.deiis.types.AnswerScore</type>
         </outputs>
         <languagesSupported/>
       </capability>
