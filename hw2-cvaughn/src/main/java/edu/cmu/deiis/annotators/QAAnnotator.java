@@ -32,10 +32,10 @@ public class QAAnnotator extends JCasAnnotator_ImplBase {
       tokArray.add(currTok);
     }
     
-    System.out.println("tokArray:");
-    for(int tmp=0; tmp < tokArray.size(); tmp++) {
-      System.out.println(docText.substring(tokArray.get(tmp).getBegin(), tokArray.get(tmp).getEnd()));
-    }
+    //System.out.println("tokArray:");
+    //for(int tmp=0; tmp < tokArray.size(); tmp++) {
+      //System.out.println(docText.substring(tokArray.get(tmp).getBegin(), tokArray.get(tmp).getEnd()));
+    //}
     
     // find the question and answer indices in the text
     for(int i=0; i < tokArray.size(); i++) {
@@ -45,7 +45,7 @@ public class QAAnnotator extends JCasAnnotator_ImplBase {
       
       String tokString = docText.substring(begin, end);
       
-      System.out.println("Looking for a question. Currently on token " + tokString + " at index " + begin);
+      //System.out.println("Looking for a question. Currently on token " + tokString + " at index " + begin);
       
       if (tokString.equals("Q")) {
         // this is the beginning of a question! Yay! Note that.
@@ -54,28 +54,40 @@ public class QAAnnotator extends JCasAnnotator_ImplBase {
         
         // find the question's ending:
         int k = i;
-        while ( k < tokArray.size() && !tokArray.get(k).equals("A") ) {
+        while ( k < tokArray.size() && !docText.substring(tokArray.get(k).getBegin(), tokArray.get(k).getEnd()).equals("A") ) {
           k++;
         }
         Token lastTok = tokArray.get(k-1);
         quest.setEnd(lastTok.getEnd());
         quest.addToIndexes();
-        System.out.println("Just made a question with the span from " + (begin+2) + " to " + lastTok.getEnd());
+        //System.out.println("Just made a question with the span from " + (begin+2) + " to " + lastTok.getEnd());
         
       } else if (tokString.equals("A")) {
         
         Answer ans = new Answer(aJCas);
-        ans.setBegin(begin + 2);
+        ans.setBegin(begin + 4);
         
-        // find the question's ending:
-        int k = i;
-        while ( k < tokArray.size() && !tokArray.get(k).equals("A") ) {
-          k++;
+        // set whether the answer is correct
+        String isCorrect = docText.substring(begin+2, end+2);
+        if (isCorrect == "1") {
+          ans.setIsCorrect(true);
+        } else if (isCorrect == "0") {
+          ans.setIsCorrect(false);
+        } else {
+          System.out.println("This is neither 1 nor 0, but should be: " + isCorrect);
         }
-        Token lastTok = tokArray.get(k-1);
+        
+        
+        // find the answer's ending:
+        int l = i+1;
+        while ( l < tokArray.size() && !docText.substring(tokArray.get(l).getBegin(), tokArray.get(l).getEnd()).equals("A") ) {
+          l++;
+        }
+        Token lastTok = tokArray.get(l-1);
         ans.setEnd(lastTok.getEnd());
+        
         ans.addToIndexes();
-        System.out.println("Just made an answer with the span from " + (begin+2) + " to " + lastTok.getEnd());
+        //System.out.println("Just made an answer with the span from " + (begin+2) + " to " + lastTok.getEnd());
         
       }
     }
