@@ -17,6 +17,8 @@ import org.apache.uima.jcas.JCas;
 public class QAAnnotator extends JCasAnnotator_ImplBase {
   
   public void process(JCas aJCas) {
+    System.out.println("CURRENTLY RUNNING QAAnnotator.java");
+    
     String docText = aJCas.getDocumentText();
     
     // get an ArrayList of all the Tokens from the CAS

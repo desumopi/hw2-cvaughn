@@ -23,11 +23,11 @@
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
 	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
 	<primitive>true</primitive>
-	<annotatorImplementationName>edu.cmu.deiis.annotators.NgramAnnotator</annotatorImplementationName>
+	<annotatorImplementationName>edu.cmu.deiis.annotators.QAAnnotator</annotatorImplementationName>
 
 	<analysisEngineMetaData>
-		<name>Ngram Annotator</name>
-		<description>Annotator for N-Grams</description>
+		<name>Question and Answer Annotator</name>
+		<description>Annotator for Questions and Answers</description>
 		<version>1.0</version>
 		<vendor>Callie Vaughn</vendor>
 		
@@ -49,8 +49,9 @@
           <type allAnnotatorFeatures="true">edu.cmu.deiis.types.Token</type>
         </inputs>
         <outputs>
-          <type allAnnotatorFeatures="true">edu.cmu.deiis.types.NGram</type>
-          </outputs>
+          <type allAnnotatorFeatures="true">edu.cmu.deiis.types.Question</type>
+          <type allAnnotatorFeatures="true">edu.cmu.deiis.types.Answer</type>
+        </outputs>
         <languagesSupported/>
       </capability>
     </capabilities>
