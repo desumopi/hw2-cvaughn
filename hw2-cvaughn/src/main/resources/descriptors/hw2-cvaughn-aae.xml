@@ -36,6 +36,9 @@
   <delegateAnalysisEngine key="AnswerSortAnnotator">
       <import name="descriptors.AnswerSortAnnotator"/>
     </delegateAnalysisEngine>
+  <delegateAnalysisEngine key="PrecisionAnnotator">
+      <import name="descriptors.PrecisionAnnotator"/>
+    </delegateAnalysisEngine>
   </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
 		<name>Aggregate Analysis Engine</name>
@@ -51,6 +54,7 @@
         <node>NgramAnnotator</node>
         <node>QAAnnotator</node>
       <node>AnswerSortAnnotator</node>
+      <node>PrecisionAnnotator</node>
       </fixedFlow>
     </flowConstraints>
     <fsIndexCollection/>

@@ -10,7 +10,7 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** 
- * Updated by JCasGen Thu Sep 26 15:32:35 EDT 2013
+ * Updated by JCasGen Thu Sep 26 17:09:09 EDT 2013
  * XML source: /home/callie/git/hw2-cvaughn/hw2-cvaughn/src/main/resources/descriptors/hw2-cvaughn-aae.xml
  * @generated */
 public class Question extends Annotation {
