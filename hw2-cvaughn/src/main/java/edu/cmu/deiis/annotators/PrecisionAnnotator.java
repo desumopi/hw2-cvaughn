@@ -16,6 +16,8 @@ import org.apache.uima.jcas.JCas;
  */
 public class PrecisionAnnotator extends JCasAnnotator_ImplBase {
   
+  private static double THRESHOLD = 0.5;
+  
   public void process(JCas aJCas) {
     System.out.println("CURRENTLY RUNNING PrecisionAnnotator.java");
     
@@ -29,6 +31,7 @@ public class PrecisionAnnotator extends JCasAnnotator_ImplBase {
     while (ansIter.hasNext()) {
       Answer currAns = (Answer) ansIter.next();
       ansArray.add(currAns);
+    
       if (currAns.getIsCorrect()) {
         N++;
       }
@@ -48,12 +51,34 @@ public class PrecisionAnnotator extends JCasAnnotator_ImplBase {
     // sort the AnswerScores into descending order:
     sortArray(asArray);
     
-    ArrayList<AnswerScore> asTopN = new ArrayList<AnswerScore>();
+    ArrayList<Integer> posAnsBegins = new ArrayList<Integer>();
+    ArrayList<Integer> negAnsBegins = new ArrayList<Integer>();
     
+    
+    //for the first N AnswerScores, are they right?
     for (int x=0; x<N; x++) {
-      asTopN.add(asArray.get(x));
+      if (asArray.get(x).getScore() >= THRESHOLD) {
+        posAnsBegins.add(asArray.get(x).getBegin());
+      } else {
+        negAnsBegins.add(asArray.get(x).getBegin());
+      }
     }
     
+    int tp = 0, fp = 0;
+    
+    for (int i=0; i < posAnsBegins.size(); i++) {
+      for (int j=0; j < ansArray.size(); j++) {
+        if (posAnsBegins.get(i) == ansArray.get(j).getBegin()) {
+          tp++;
+        } else {
+          fp++;
+        }
+      }
+    }
+    
+    double precision = ((double)tp)/(double)(tp+fp);
+    
+    System.out.println("Precision at a threshold of " + THRESHOLD + " is " + precision);
     
   }
   
