@@ -55,7 +55,7 @@ public class QAAnnotator extends JCasAnnotator_ImplBase {
         }
         Token lastTok = tokArray.get(k-1);
         quest.setEnd(lastTok.getEnd());
-        
+        quest.addToIndexes();
         
       } else if (tokString.equals("A")) {
         
@@ -69,6 +69,7 @@ public class QAAnnotator extends JCasAnnotator_ImplBase {
         }
         Token lastTok = tokArray.get(k-1);
         ans.setEnd(lastTok.getEnd());
+        ans.addToIndexes();
 
       }
       prev = tok;
