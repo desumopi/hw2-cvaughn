@@ -30,11 +30,12 @@ public class QAAnnotator extends JCasAnnotator_ImplBase {
       tokArray.add(currTok);
     }
     
-    ArrayList<Integer> aBegins = new ArrayList<Integer>();
-    ArrayList<Integer> aEnds = new ArrayList<Integer>();
+    System.out.println("tokArray:");
+    for(int tmp=0; tmp < tokArray.size(); tmp++) {
+      System.out.println(docText.substring(tokArray.get(tmp).getBegin(), tokArray.get(tmp).getEnd()));
+    }
     
     // find the question and answer indices in the text
-    Token prev;
     for(int i=0; i < tokArray.size(); i++) {
       Token tok = tokArray.get(i);
       int begin = tok.getBegin();
@@ -42,6 +43,7 @@ public class QAAnnotator extends JCasAnnotator_ImplBase {
       
       String tokString = docText.substring(begin, end);
       
+      System.out.println("Looking for a question. Currently on token " + tokString + " at index " + begin);
       
       if (tokString.equals("Q")) {
         // this is the beginning of a question! Yay! Note that.
@@ -56,6 +58,7 @@ public class QAAnnotator extends JCasAnnotator_ImplBase {
         Token lastTok = tokArray.get(k-1);
         quest.setEnd(lastTok.getEnd());
         quest.addToIndexes();
+        System.out.println("Just made a question with the span from " + (begin+2) + " to " + lastTok.getEnd());
         
       } else if (tokString.equals("A")) {
         
@@ -70,9 +73,9 @@ public class QAAnnotator extends JCasAnnotator_ImplBase {
         Token lastTok = tokArray.get(k-1);
         ans.setEnd(lastTok.getEnd());
         ans.addToIndexes();
-
+        System.out.println("Just made an answer with the span from " + (begin+2) + " to " + lastTok.getEnd());
+        
       }
-      prev = tok;
     }
     
   }
